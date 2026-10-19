@@ -1,0 +1,335 @@
+
+* {
+  box-sizing: border-box;
+}
+
+.dashboard {
+  min-height: 100vh;
+  background: #f4f6fb;
+  color: #202945;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 32px;
+  background: #fff;
+  border-bottom: 1px solid #e6e9f2;
+}
+
+.dashboard-brand {
+  margin: 0;
+  color: #344bb5;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.dashboard-welcome {
+  margin: 7px 0 0;
+  color: #737d94;
+  font-size: 14px;
+}
+
+.dashboard-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.dashboard-section {
+  margin-top: 32px;
+}
+
+.dashboard-section h2 {
+  margin: 0 0 20px;
+  font-size: 21px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.dashboard-card,
+.dashboard-item {
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e8ebf4;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(35, 49, 90, 0.04);
+}
+
+.dashboard-card h3 {
+  margin: 0 0 16px;
+  color: #717b92;
+  font-size: 14px;
+}
+
+.dashboard-number {
+  margin: 0;
+  color: #293f9e;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.dashboard-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.dashboard-item h3 {
+  margin: 0 0 12px;
+  color: #26365f;
+  font-size: 18px;
+}
+
+.dashboard-item p {
+  color: #66718a;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.dashboard-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 8px 0 0;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #4056c6;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.dashboard-button:hover {
+  background: #2d409e;
+  transform: translateY(-1px);
+}
+
+.dashboard-button:disabled {
+  background: #c9cede;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dashboard-button-secondary {
+  background: #e9edff;
+  color: #344bb5;
+}
+
+.dashboard-button-secondary:hover {
+  background: #dce3ff;
+}
+
+.dashboard-error {
+  padding: 14px 16px;
+  border: 1px solid #ffcaca;
+  border-radius: 10px;
+  background: #fff0f0;
+  color: #b42318;
+}
+
+.dashboard-empty {
+  padding: 24px;
+  border: 1px dashed #cbd2e2;
+  border-radius: 12px;
+  background: #fff;
+  color: #737d94;
+  text-align: center;
+}
+
+.dashboard-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #fff3d7;
+  color: #8a5a00;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dashboard-status.resolved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.dashboard-status.reviewed {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    padding: 20px;
+  }
+
+  .dashboard-content {
+    padding: 20px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-brand {
+    font-size: 21px;
+  }
+}
+
+/* ==============================
+   CREATE EVENT FORM
+============================== */
+
+.event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.event-form label {
+  margin-top: 12px;
+  color: #334155;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.event-form input,
+.event-form textarea,
+.event-form select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #1e293b;
+  font-family: inherit;
+  font-size: 0.96rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.event-form input:focus,
+.event-form textarea:focus,
+.event-form select:focus {
+  outline: none;
+  border-color: #0d9488;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.12);
+}
+
+.event-form textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.event-form input::placeholder,
+.event-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* Form action button */
+.event-form button[type="submit"] {
+  width: 100%;
+  margin-top: 22px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0f766e, #0d9488);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.event-form button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(13, 148, 136, 0.25);
+}
+
+.event-form button[type="submit"]:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Create event card */
+.dashboard-content .dashboard-card:has(.event-form) {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 35px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 12px 35px rgba(30, 41, 59, 0.07);
+}
+
+/* Back to dashboard link/button */
+.dashboard-header .dashboard-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border-radius: 9px;
+  background: #0f766e;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.dashboard-header .dashboard-button:hover {
+  background: #115e59;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+  .dashboard-content .dashboard-card:has(.event-form) {
+    padding: 22px 16px;
+  }
+
+  .event-form input,
+  .event-form textarea,
+  .event-form select {
+    padding: 12px;
+  }
+
+  .dashboard-header .dashboard-button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.delete-event-button {
+  background: #dc2626;
+  color: #ffffff;
+  border: none;
+}
+
+.delete-event-button:hover {
+  background: #b91c1c;
+}

@@ -1,0 +1,45 @@
+
+:root {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #202945;
+  background: #f4f6fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid #9ba9ff;
+  outline-offset: 2px;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}

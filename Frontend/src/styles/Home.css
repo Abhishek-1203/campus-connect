@@ -1,0 +1,205 @@
+
+.home-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #eef2ff, #f8faff, #e0e7ff);
+}
+
+.home-content {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+.home-content > h1 {
+  margin: 0 0 12px;
+  color: #3730a3;
+  font-size: clamp(2.3rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.home-subtitle {
+  margin: 0 0 42px;
+  color: #64748b;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.home-content > h2 {
+  margin: 0 0 28px;
+  color: #1e293b;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+}
+
+.portal-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.portal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 32px 26px;
+  border: 2px solid transparent;
+  border-radius: 24px;
+  background: white;
+  color: #1e293b;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 12px 35px rgba(30, 41, 59, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.portal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(30, 41, 59, 0.14);
+}
+
+.student-portal:hover {
+  border-color: #6366f1;
+}
+
+.admin-portal:hover {
+  border-color: #0d9488;
+}
+
+.portal-icon {
+  display: block;
+  margin-bottom: 18px;
+  font-size: 3.5rem;
+}
+
+.portal-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.6rem;
+  color: #312e81;
+}
+
+.admin-portal h3 {
+  color: #115e59;
+}
+
+.portal-card p {
+  max-width: 290px;
+  margin: 0 0 24px;
+  color: #64748b;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.portal-action {
+  margin-top: auto;
+  color: #4f46e5;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.admin-portal .portal-action {
+  color: #0f766e;
+}
+
+.home-content .auth-footer {
+  margin-top: 28px;
+  color: #64748b;
+}
+
+.home-content .auth-footer a {
+  color: #4f46e5;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home-content .auth-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 650px) {
+  .home-page {
+    padding: 30px 16px;
+  }
+
+  .home-subtitle {
+    margin-bottom: 30px;
+  }
+
+  .portal-options {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .portal-card {
+    min-height: 250px;
+    padding: 26px 20px;
+  }
+}
+
+.student-welcome-card {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  background: #ffffff;
+  border: 1px solid #e0e7ff;
+  border-radius: 24px;
+  box-shadow: 0 12px 35px rgba(30, 41, 59, 0.08);
+}
+
+.student-welcome-card .portal-icon {
+  font-size: 4rem;
+}
+
+.student-welcome-card h2 {
+  margin: 0 0 16px;
+  color: #312e81;
+  font-size: 1.8rem;
+}
+
+.student-welcome-card > p {
+  margin: 0 0 28px;
+  color: #64748b;
+  line-height: 1.8;
+}
+
+.student-auth-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.student-auth-links a {
+  color: #ffffff;
+  background: #4f46e5;
+  padding: 12px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background 0.2s ease;
+}
+
+.student-auth-links a:hover {
+  background: #3730a3;
+}
+
+.student-auth-links span {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 480px) {
+  .student-welcome-card {
+    padding: 30px 20px;
+  }
+}
