@@ -1,10 +1,10 @@
-
 const express = require("express");
 const router = express.Router();
 
 const {
     getDashboardStats,
-    getEventParticipants
+    getEventParticipants,
+    getReports
 } = require("../controllers/adminController");
 
 const authMiddleware = require("../middleware/authMiddleware");
@@ -24,6 +24,14 @@ router.get(
     authMiddleware,
     adminMiddleware,
     getEventParticipants
+);
+
+// Reports and analytics
+router.get(
+    "/reports",
+    authMiddleware,
+    adminMiddleware,
+    getReports
 );
 
 module.exports = router;

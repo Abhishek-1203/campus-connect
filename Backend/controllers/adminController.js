@@ -1,4 +1,3 @@
-
 const db = require("../config/db");
 
 // Get admin dashboard statistics
@@ -60,7 +59,33 @@ const getEventParticipants = (req, res) => {
     });
 };
 
+// Get reports and analytics
+const getReports = (req, res) => {
+    const sql = `
+        SELECT
+            (SELECT COUNT(*) FROM events) AS total_events,
+            (SELECT COUNT(*) FROM registrations) AS total_registrations,
+            (SELECT COUNT(*) FROM users WHERE role = 'student') AS total_students,
+            (SELECT COUNT(*) FROM attendance WHERE status = 'present') AS total_present,
+            (SELECT COUNT(*) FROM attendance WHERE status = 'absent') AS total_absent,
+            (SELECT COUNT(*) FROM suggestions WHERE status = 'pending') AS pending_suggestions
+    `;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error(err);
+
+            return res.status(500).json({
+                message: "Failed to fetch reports"
+            });
+        }
+
+        return res.json(results[0]);
+    });
+};
+
 module.exports = {
     getDashboardStats,
-    getEventParticipants
+    getEventParticipants,
+    getReports
 };
