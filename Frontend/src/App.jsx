@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -11,6 +12,8 @@ import EditEvent from "./pages/EditEvent";
 import EventParticipants from "./pages/EventParticipants";
 import AdminAttendance from "./pages/AdminAttendance";
 import AdminReports from "./pages/AdminReports";
+import AdminCertificateTemplate from "./pages/AdminCertificateTemplate";
+import AdminIssueCertificate from "./pages/AdminIssueCertificate";
 
 import MyRegistrations from "./pages/MyRegistrations";
 import MyCertificates from "./pages/MyCertificates";
@@ -18,7 +21,6 @@ import MyNotifications from "./pages/MyNotifications";
 import MyProfile from "./pages/MyProfile";
 import StudentLayout from "./components/StudentLayout";
 
-// Protect routes by authentication and role
 function ProtectedRoute({ children, role }) {
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user") || "null");
@@ -39,7 +41,6 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          {/* Home */}
           <Route path="/" element={<Home />} />
 
           {/* Authentication */}
@@ -47,12 +48,7 @@ export default function App() {
             path="/student/login"
             element={<Login expectedRole="student" />}
           />
-
-          <Route
-            path="/student/register"
-            element={<Register />}
-          />
-
+          <Route path="/student/register" element={<Register />} />
           <Route
             path="/admin/login"
             element={<Login expectedRole="admin" />}
@@ -68,22 +64,10 @@ export default function App() {
             }
           >
             <Route index element={<StudentDashboard />} />
-            <Route
-              path="registrations"
-              element={<MyRegistrations />}
-            />
-            <Route
-              path="certificates"
-              element={<MyCertificates />}
-            />
-            <Route
-              path="notifications"
-              element={<MyNotifications />}
-            />
-            <Route
-              path="profile"
-              element={<MyProfile />}
-            />
+            <Route path="registrations" element={<MyRegistrations />} />
+            <Route path="certificates" element={<MyCertificates />} />
+            <Route path="notifications" element={<MyNotifications />} />
+            <Route path="profile" element={<MyProfile />} />
           </Route>
 
           {/* Admin Dashboard */}
@@ -96,12 +80,31 @@ export default function App() {
             }
           />
 
-          {/* Admin Reports & Analytics */}
           <Route
             path="/admin/reports"
             element={
               <ProtectedRoute role="admin">
                 <AdminReports />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Event-specific certificate template upload */}
+          <Route
+            path="/admin/events/:eventId/certificate-template"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminCertificateTemplate />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Event-specific certificate issuing */}
+          <Route
+            path="/admin/events/:eventId/issue-certificates"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminIssueCertificate />
               </ProtectedRoute>
             }
           />
@@ -134,7 +137,6 @@ export default function App() {
             }
           />
 
-          {/* Admin Attendance */}
           <Route
             path="/admin/events/:eventId/attendance"
             element={
@@ -149,16 +151,11 @@ export default function App() {
             path="/login"
             element={<Navigate to="/" replace />}
           />
-
           <Route
             path="/register"
             element={<Navigate to="/student/register" replace />}
           />
-
-          <Route
-            path="*"
-            element={<Navigate to="/" replace />}
-          />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

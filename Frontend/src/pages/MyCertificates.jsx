@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
@@ -36,8 +35,20 @@ export default function MyCertificates() {
     loadCertificates();
   }, [loadCertificates]);
 
+  const formatDate = (dateValue) => {
+    if (!dateValue) return "Not available";
+
+    const date = new Date(dateValue);
+
+    if (Number.isNaN(date.getTime())) {
+      return "Not available";
+    }
+
+    return date.toLocaleDateString();
+  };
+
   return (
-    <div className="dashboard">
+    <main className="dashboard">
       <header className="dashboard-header">
         <div>
           <h1 className="dashboard-brand">My Certificates</h1>
@@ -69,6 +80,7 @@ export default function MyCertificates() {
           ) : error ? (
             <div className="dashboard-card">
               <p className="dashboard-error">{error}</p>
+
               <button
                 type="button"
                 className="dashboard-button"
@@ -90,12 +102,20 @@ export default function MyCertificates() {
               {certificates.map((certificate, index) => (
                 <article
                   className="dashboard-card"
-                  key={certificate.id ?? certificate.certificate_id ?? index}
+                  key={
+                    certificate.certificate_id ??
+                    certificate.id ??
+                    index
+                  }
                 >
                   <h3>
                     {certificate.event_title ||
                       certificate.title ||
-                      `Certificate #${certificate.id ?? index + 1}`}
+                      `Certificate #${
+                        certificate.certificate_id ??
+                        certificate.id ??
+                        index + 1
+                      }`}
                   </h3>
 
                   <p>
@@ -105,24 +125,24 @@ export default function MyCertificates() {
                       "Not available"}
                   </p>
 
-                  {certificate.issued_at && (
-                    <p>
-                      <strong>Issued On:</strong>{" "}
-                      {new Date(
-                        certificate.issued_at
-                      ).toLocaleDateString()}
-                    </p>
-                  )}
+                  <p>
+                    <strong>Issued On:</strong>{" "}
+                    {formatDate(certificate.issued_at)}
+                  </p>
 
-                  {certificate.certificate_url && (
+                  {certificate.certificate_url ? (
                     <a
                       className="dashboard-button"
                       href={certificate.certificate_url}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                     >
                       View Certificate
                     </a>
+                  ) : (
+                    <p>
+                      Certificate file is not available yet.
+                    </p>
                   )}
                 </article>
               ))}
@@ -130,6 +150,6 @@ export default function MyCertificates() {
           )}
         </section>
       </div>
-    </div>
+    </main>
   );
 }

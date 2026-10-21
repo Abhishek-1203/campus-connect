@@ -1,3 +1,4 @@
+
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
@@ -38,11 +39,7 @@ export default function AdminDashboard() {
       const eventsData = eventsResponse.data;
       const suggestionsData = suggestionsResponse.data;
 
-      setStats(
-        statsData.stats ||
-          statsData.dashboard ||
-          statsData
-      );
+      setStats(statsData.stats || statsData.dashboard || statsData);
 
       setEvents(
         Array.isArray(eventsData)
@@ -74,7 +71,9 @@ export default function AdminDashboard() {
 
     return (
       (event.title || "").toLowerCase().includes(search) ||
-      (event.location || "").toLowerCase().includes(search)
+      (event.location || event.venue || "")
+        .toLowerCase()
+        .includes(search)
     );
   });
 
@@ -152,9 +151,7 @@ export default function AdminDashboard() {
             CAMPUSCONNECT ADMINISTRATION
           </p>
 
-          <h1 className="dashboard-brand">
-            Admin Dashboard
-          </h1>
+          <h1 className="dashboard-brand">Admin Dashboard</h1>
 
           <p className="dashboard-welcome">
             Manage campus events, registrations, and student suggestions.
@@ -180,13 +177,8 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {error && (
-        <p className="dashboard-error">{error}</p>
-      )}
-
-      {message && (
-        <p className="dashboard-success">{message}</p>
-      )}
+      {error && <p className="dashboard-error">{error}</p>}
+      {message && <p className="dashboard-success">{message}</p>}
 
       <section className="dashboard-section">
         <h2>Platform Overview</h2>
@@ -230,7 +222,7 @@ export default function AdminDashboard() {
         <div className="admin-section-heading">
           <div>
             <h2>Event Management</h2>
-            <p>Manage events published on CampusConnect.</p>
+            <p>Manage events and their individual certificate templates.</p>
 
             <div
               style={{
@@ -266,23 +258,15 @@ export default function AdminDashboard() {
         {filteredEvents.length === 0 ? (
           <div className="dashboard-card">
             <h3>No events found</h3>
-            <p>
-              Create your first campus event or adjust your search.
-            </p>
+            <p>Create an event or adjust your search.</p>
           </div>
         ) : (
           <div className="dashboard-grid">
             {filteredEvents.map((event) => (
-              <article
-                className="dashboard-card"
-                key={event.id}
-              >
+              <article className="dashboard-card" key={event.id}>
                 <h3>{event.title}</h3>
 
-                <p>
-                  {event.description ||
-                    "No description available."}
-                </p>
+                <p>{event.description || "No description available."}</p>
 
                 <p>
                   <strong>Date:</strong>{" "}
@@ -293,7 +277,7 @@ export default function AdminDashboard() {
 
                 <p>
                   <strong>Location:</strong>{" "}
-                  {event.location || "Not specified"}
+                  {event.location || event.venue || "Not specified"}
                 </p>
 
                 <p>
@@ -306,9 +290,7 @@ export default function AdminDashboard() {
                     type="button"
                     className="dashboard-button"
                     onClick={() =>
-                      navigate(
-                        `/admin/events/${event.id}/participants`
-                      )
+                      navigate(`/admin/events/${event.id}/participants`)
                     }
                   >
                     Participants
@@ -318,12 +300,35 @@ export default function AdminDashboard() {
                     type="button"
                     className="dashboard-button"
                     onClick={() =>
-                      navigate(
-                        `/admin/events/${event.id}/attendance`
-                      )
+                      navigate(`/admin/events/${event.id}/attendance`)
                     }
                   >
                     Mark Attendance
+                  </button>
+
+                  <button
+                    type="button"
+                    className="dashboard-button"
+                    onClick={() =>
+                      navigate(
+                        `/admin/events/${event.id}/certificate-template`
+                      )
+                    }
+                  >
+                    Upload Certificate
+                  </button>
+
+                  {/* New: issue a certificate for this event */}
+                  <button
+                    type="button"
+                    className="dashboard-button"
+                    onClick={() =>
+                      navigate(
+                        `/admin/events/${event.id}/issue-certificates`
+                      )
+                    }
+                  >
+                    Issue Certificate
                   </button>
 
                   <button
@@ -342,9 +347,7 @@ export default function AdminDashboard() {
                     disabled={deletingId === event.id}
                     onClick={() => handleDeleteEvent(event.id)}
                   >
-                    {deletingId === event.id
-                      ? "Deleting..."
-                      : "Delete"}
+                    {deletingId === event.id ? "Deleting..." : "Delete"}
                   </button>
                 </div>
               </article>
@@ -363,19 +366,13 @@ export default function AdminDashboard() {
 
         {suggestions.length === 0 ? (
           <div className="dashboard-card">
-            <p>
-              No student suggestions have been submitted yet.
-            </p>
+            <p>No student suggestions have been submitted yet.</p>
           </div>
         ) : (
           <div className="dashboard-list">
             {suggestions.map((suggestion) => (
-              <article
-                className="dashboard-item"
-                key={suggestion.id}
-              >
+              <article className="dashboard-item" key={suggestion.id}>
                 <h3>Suggestion #{suggestion.id}</h3>
-
                 <p>{suggestion.message}</p>
 
                 <p>
@@ -389,10 +386,7 @@ export default function AdminDashboard() {
                     className="dashboard-button"
                     disabled={updatingId === suggestion.id}
                     onClick={() =>
-                      handleSuggestionStatus(
-                        suggestion.id,
-                        "reviewed"
-                      )
+                      handleSuggestionStatus(suggestion.id, "reviewed")
                     }
                   >
                     Mark Reviewed
@@ -403,10 +397,7 @@ export default function AdminDashboard() {
                     className="dashboard-button"
                     disabled={updatingId === suggestion.id}
                     onClick={() =>
-                      handleSuggestionStatus(
-                        suggestion.id,
-                        "resolved"
-                      )
+                      handleSuggestionStatus(suggestion.id, "resolved")
                     }
                   >
                     Mark Resolved
